@@ -2,13 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     using ManagementSystem.Common;
+    using ManagementSystem.Common.Mappings;
     using ManagementSystem.Models;
 
-    public class TaskInputModel
+    public class TaskInputModel : IMapTo<Task>
     {
         private ICollection<User> assignedToUsers;
 

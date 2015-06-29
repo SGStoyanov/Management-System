@@ -3,10 +3,12 @@
     using System.Linq;
     using System.Web.Mvc;
 
+    using AutoMapper;
     using AutoMapper.QueryableExtensions;
 
     using ManagementSystem.Common;
     using ManagementSystem.Data;
+    using ManagementSystem.Models;
     using ManagementSystem.Web.InputModels;
     using ManagementSystem.Web.ViewModels;
 
@@ -40,16 +42,7 @@
 
         public ActionResult Create()
         {
-
-
-            this.ViewBag.AssignedToUsers = this.Data.Users
-                .All()
-                .Select(x => new SelectListItem
-                {
-                    Value = x.Id.ToString(),
-                    Text = x.UserName
-                });
-
+            this.LoadUsers();
             return this.View();
         }
 
@@ -57,7 +50,30 @@
         [ValidateAntiForgeryToken]
         public ActionResult Create(TaskInputModel model)
         {
-            return null;
+            if (model != null && this.ModelState.IsValid)
+            {
+                var task = Mapper.Map<Task>(model);
+                this.Data.Tasks.Add(task);
+                this.Data.SaveChanges();
+
+                return this.RedirectToRoute("Default");
+            }
+
+            this.LoadUsers();
+            return this.View(model);
+
         }
+
+        private void LoadUsers()
+        {
+            this.ViewBag.AssignedToUsers = this.Data.Users
+                .All()
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.UserName
+                });
+        }
+
     }
 }
