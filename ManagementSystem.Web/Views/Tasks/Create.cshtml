@@ -1,0 +1,47 @@
+﻿@model ManagementSystem.Web.InputModels.TaskInputModel
+           
+@{
+    ViewBag.Title = "Create Task";
+}
+
+<h3>@ViewBag.Title</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <br/>
+    
+    @Html.LabelFor(x => x.Description)
+    <br />
+    @Html.EditorFor(x => x.Description)
+    @Html.ValidationMessageFor(x => x.Description)
+    <br/>
+    <br/>
+
+    @Html.LabelFor(x => x.TaskType)
+    <br/>
+    @Html.EnumDropDownListFor(x => x.TaskType)
+    @Html.ValidationMessageFor(x => x.TaskType)
+    <br/>
+    <br/>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.NextActionDate)
+        <br />
+        <div class="col-md-2">
+            @Html.TextBoxFor(x => x.NextActionDate, new { @class = "form-control datefield" })
+        </div>
+    </div>
+    <br/>
+    <br/>
+
+    @Html.LabelFor(x => x.AssignedToUsers)
+    <br />
+    @Html.DropDownListFor(x => x.AssignedToUsers, (IEnumerable<SelectListItem>)ViewBag.AssignedToUsers)
+    @Html.ValidationMessageFor(x => x.AssignedToUsers)
+    <br/>
+    <br/>
+
+    <input class="btn btn-default" type="submit" value="Submit"/>
+}

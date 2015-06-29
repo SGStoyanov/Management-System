@@ -1,0 +1,15 @@
+﻿@model ManagementSystem.Web.ViewModels.TaskViewModel
+
+<div class="container">
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.Description</td>
+            <td>@Model.TaskType</td>
+            <td>@Model.Status</td>
+            <td>@Model.CreatedDate</td>
+            <td>@Model.NextActionDate</td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Tasks", new { id = Model.Id }, new { @class = "btn btn-default" })
+            </td>
+        </tr>
+</div>
